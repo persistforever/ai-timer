@@ -7,8 +7,11 @@ def start_countdown(seconds, message):
     :param seconds: int, 倒计时秒数
     :param message: str, 倒计时结束后的提示信息
     """
-    for i in range(seconds, 0, -1):
-        time.sleep(1)  # 暂停一秒
+    try:
+        for i in range(int(seconds), 0, -1):
+            time.sleep(1)  # 暂停一秒
+    except TypeError as e:
+        return "Error: " + str(e)
     return message
 
 # 创建 Gradio 的 Blocks 对象
