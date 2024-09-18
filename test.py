@@ -3,26 +3,32 @@ import time
 
 def start_countdown(seconds, message):
     """
-    函数用于执行倒计时操作。
-    :param seconds: int, 倒计时秒数
-    :param message: str, 倒计时结束后的提示信息
+    倒计时函数，接受秒数和消息作为参数，在控制台中进行倒计时，并在结束后返回消息。
+    :param seconds: int, 倒计时的秒数
+    :param message: str, 倒计时结束后显示的信息
+    :return: str, 返回的提示信息
     """
     for i in range(seconds, 0, -1):
-        time.sleep(1)  # 暂停一秒
+        print(f"Counting down... {i} seconds left")
+        time.sleep(1)
     return message
 
-# 创建 Gradio 的 Blocks 对象
+# 创建Gradio界面
 with gr.Blocks() as demo:
-    # 创建输入组件
-    input_seconds = gr.Number(label="请输入倒计时时间（秒）")
-    input_message = gr.Textbox(label="请输入倒计时提示语")
-
-    # 创建输出组件
-    output_message = gr.Textbox(label="倒计时结束提示")
-
-    # 创建按钮并绑定处理函数
+    gr.Markdown("### 倒计时器")
+    
+    # 输入组件
+    input_seconds = gr.Number(label="请输入倒计时秒数", placeholder="例如: 60")
+    input_message = gr.Textbox(label="请输入倒计时结束后的提示语", placeholder="例如: 时间到！")
+    
+    # 按钮
     btn_start = gr.Button("开始")
-    btn_start.click(start_countdown, inputs=[input_seconds, input_message], outputs=output_message)
+    
+    # 输出组件
+    output_text = gr.Textbox(label="倒计时结束后显示的信息")
 
-# 启动 Gradio 应用
+    # 事件处理
+    btn_start.click(start_countdown, inputs=[input_seconds, input_message], outputs=output_text)
+
+# 启动Gradio应用
 demo.launch()
