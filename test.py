@@ -11,6 +11,8 @@ def start_countdown(seconds, message):
     for i in range(seconds, 0, -1):
         print(f"Counting down... {i} seconds left")
         time.sleep(1)
+    except ValueError:
+        return "错误：请输入一个整数秒数"
     return message
 
 # 创建Gradio界面
